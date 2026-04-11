@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { 
-  ListTodo, Trophy, Users, Archive, 
-  ShieldAlert, User, LogOut, Zap, Shield, Star, Settings 
-} from "lucide-react";
+import Image from "next/image";
+import { ListTodo, Trophy, Users, Archive, ShieldAlert, User, LogOut, Shield, Star, Settings } from "lucide-react";
 import Link from "next/link";
 import "./globals.css";
 
@@ -29,23 +27,29 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="bg-[#FAF5F0] text-[#1B3C53] flex min-h-screen font-sans antialiased">
         <aside className="w-72 bg-[#C9BBAF]/10 border-r border-[#C9BBAF]/30 p-8 flex flex-col gap-10 shrink-0 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#1B3C53] rounded-2xl flex items-center justify-center text-[#FAF5F0] shadow-lg shadow-[#1B3C53]/20">
-              <Zap size={22} className="fill-[#FAF5F0]" />
+          
+          <div className="flex items-center gap-4">
+            <div className="relative w-12 h-12 shrink-0">
+              <Image 
+                src="/logo.jpeg" 
+                alt="Sprintify Logo" 
+                fill 
+                className="object-contain"
+              />
             </div>
-            <span className="text-xl font-black tracking-tighter text-[#1B3C53]">AGILE MASTER</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-black tracking-tighter text-[#1B3C53] leading-none uppercase">Sprintify</span>
+              <span className="text-[9px] font-bold text-[#4A708B] tracking-[0.2em] uppercase mt-1">for scrum</span>
+            </div>
           </div>
 
           <nav className="flex flex-col gap-1.5 flex-1">
             <SidebarItem href="/sprint-board" icon={<ListTodo size={18} />} label="Sprint Board" />
             <SidebarItem href="/leaderboard" icon={<Trophy size={18} />} label="Leaderboard" />
-
             {(userData.role === "ADMIN" || userData.role === "PRODUCT_OWNER" || userData.role === "SCRUM_MASTER") && (
               <SidebarItem href="/backlog" icon={<Archive size={18} />} label="Product Backlog" />
             )}
-            
             <div className="h-px bg-[#C9BBAF]/30 my-6 mx-2" />
-            
             {userData.role === "ADMIN" && (
               <>
                 <p className="text-[10px] text-[#4A708B] font-black px-3 mb-3 uppercase tracking-[0.2em]">Management</p>
@@ -54,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </>
             )}
           </nav>
-
+          
           <div className="pt-6 border-t border-[#C9BBAF]/30">
             <div className="flex items-center gap-4 mb-5 px-2">
               <div className="w-10 h-10 bg-[#1B3C53] rounded-xl flex items-center justify-center text-[#FAF5F0]">
